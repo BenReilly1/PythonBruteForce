@@ -33,10 +33,39 @@ def crack():
         if found:
             break
     if found:
-        firstTime = False
+        time.sleep(1)
+        menu()
+
+def debug():
+    found = False 
+    BFCounter = 0
+    BFclearCounter = 0
+    
+    for length in range(1, 10):
+        password_to_attempt = product(passwordAlphabet, repeat=length)
+                                     
+        for attempt in password_to_attempt:
+            attempt = ''.join(attempt)
+            BFCounter += 1
+            BFclearCounter += 1
+            BFCounterWord = str(BFCounter)
+            print("Attempt #"+ BFCounterWord +", Word Attempt Was "+ attempt)
+
+            if BFclearCounter == 10000000:
+                sys._clear_type_cache
+            if attempt == user_password:
+                print("The password is "+ attempt +"! It was found in" , BFCounter, "attempts!")
+                
+                found = True
+                break
+        if found:
+            break
+    if found:
+        time.sleep(1)
         menu()
 
 def firstTimeMenu():
+    global choice
     print("************Welcome to Password Cracker**************")
     print()
     choice = input("""
@@ -50,12 +79,15 @@ def firstTimeMenu():
         usrPass()
     elif choice == "B" or choice =="b":
         sys.exit
+    elif choice == "DEBUG" or choice == "debug" or choice == "Debug":
+        usrPass()
     else:
         print("You must only select either A or B")
         print("Please try again")
         menu()
 
 def menu():
+    global choice
     print()
     print()
     print()       
@@ -71,6 +103,8 @@ def menu():
         usrPass()
     elif choice == "B" or choice =="b":
         sys.exit
+    elif choice == "DEBUG" or choice == "debug" or choice == "Debug":
+        usrPass()
     else:
         print("You must only select either A or B")
         print("Please try again")
@@ -79,6 +113,9 @@ def menu():
 def usrPass():
     global user_password
     user_password = input("Enter a password: ").upper()
-    crack()
+    if choice == "DEBUG" or choice == "debug" or choice == "Debug":
+        debug()
+    else:
+        crack()
 
 init()
