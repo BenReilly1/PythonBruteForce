@@ -1,6 +1,7 @@
 import sys
 from itertools import product
 import time
+import hashlib
 
 def init():
     global passwordAlphabet, firstTime
@@ -70,14 +71,16 @@ def firstTimeMenu():
     print()
     choice = input("""
         A: Run the Password Cracker
-        B: Quit Program
-
+        B: Generate hash
+        Q: Quit Program
         Please enter your choice: """)
 
         
     if choice == "A" or choice =="a":
         usrPass()
-    elif choice == "B" or choice =="b":
+    elif choice == "B" or choice == "b":
+      usrPass()
+    elif choice == "Q" or choice =="q":
         sys.exit
     elif choice == "DEBUG" or choice == "debug" or choice == "Debug":
         usrPass()
@@ -94,14 +97,16 @@ def menu():
     print("************Welcome to Password Cracker**************")
     choice = input("""
         A: Run again
-        B: Quit Program
-
+        B: Generate hash
+        Q: Quit Program
         Please enter your choice: """).strip()
 
         
     if choice == "A" or choice =="a":
         usrPass()
-    elif choice == "B" or choice =="b":
+    elif choice == "B" or choice == "b":
+      usrPass()
+    elif choice == "Q" or choice =="q":
         sys.exit
     elif choice == "DEBUG" or choice == "debug" or choice == "Debug":
         usrPass()
@@ -110,11 +115,18 @@ def menu():
         print("Please try again")
         menu()
 
+def hashGen():
+    hashVal = hashlib.md5(user_password.encode())
+    hashRead = hashVal.hexdigest()
+    print("The password was "+ user_password+", the hash value of the password is", hashRead)
+
 def usrPass():
     global user_password
     user_password = input("Enter a password: ").upper()
     if choice == "DEBUG" or choice == "debug" or choice == "Debug":
         debug()
+    elif choice == "B" or choice == "b":
+      hashGen()
     else:
         crack()
 
