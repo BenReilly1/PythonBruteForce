@@ -1,3 +1,4 @@
+
 import sys
 from itertools import product
 import time
@@ -10,6 +11,7 @@ def init():
     firstTimeMenu()
 
 def crack():
+    u_password = user_password.upper()
     found = False 
     BFCounter = 0
     BFclearCounter = 0
@@ -26,7 +28,7 @@ def crack():
                 print("Brute force in progress...          Attempt #", BFCounter)
                 BFclearCounter = 0
 
-            if attempt == user_password:
+            if attempt == u_password:
                 print("The password is "+ attempt +"! It was found in" , BFCounter, "attempts!")
                 
                 found = True
@@ -119,10 +121,11 @@ def hashGen():
     hashVal = hashlib.md5(user_password.encode())
     hashRead = hashVal.hexdigest()
     print("The password was "+ user_password+", the hash value of the password is", hashRead)
+    menu()
 
 def usrPass():
     global user_password
-    user_password = input("Enter a password: ").upper()
+    user_password = input("Enter a password: ")
     if choice == "DEBUG" or choice == "debug" or choice == "Debug":
         debug()
     elif choice == "B" or choice == "b":
