@@ -40,6 +40,7 @@ def crack():
         menu()
 
 def debug():
+    u_password = user_password.upper()
     found = False 
     BFCounter = 0
     BFclearCounter = 0
@@ -56,7 +57,7 @@ def debug():
 
             if BFclearCounter == 10000000:
                 sys._clear_type_cache
-            if attempt == user_password:
+            if attempt == u_password:
                 print("The password is "+ attempt +"! It was found in" , BFCounter, "attempts!")
                 
                 found = True
@@ -125,12 +126,14 @@ def hashGen():
 
 def usrPass():
     global user_password
-    user_password = input("Enter a password: ")
     if choice == "DEBUG" or choice == "debug" or choice == "Debug":
+        user_password = input("Enter a password: ")
         debug()
     elif choice == "B" or choice == "b":
-      hashGen()
+        user_password = input("Enter a password to be hashed: ")
+        hashGen()
     else:
+        user_password = input("Enter a password: ")
         crack()
 
 init()
